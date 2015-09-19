@@ -1,22 +1,24 @@
-package com.unleashed.android.groupchat;
+package com.unleashed.android.groupchat.ui;
 
-import java.util.Locale;
-
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.ActionBar;
+import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.view.inputmethod.InputMethodManager;
+
+import com.unleashed.android.groupchat.R;
+import com.unleashed.android.groupchat.ui.fragments.ChatWindow;
+import com.unleashed.android.groupchat.ui.fragments.LoginPage;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements ActionBar.TabListener {
 
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -73,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
+
+
     }
 
 
@@ -100,6 +105,15 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+
+        // Code to hide virtual keyboard
+        View focus = getCurrentFocus();
+        if(focus != null){
+            InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            keyboard.hideSoftInputFromWindow(focus.getWindowToken(), 0);
+        }
+
+
         // When the given tab is selected, switch to the corresponding page in
         // the ViewPager.
         mViewPager.setCurrentItem(tab.getPosition());
@@ -107,10 +121,29 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+
+        // Code to hide virtual keyboard
+        View focus = getCurrentFocus();
+        if(focus != null){
+            InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            keyboard.hideSoftInputFromWindow(focus.getWindowToken(), 0);
+        }
+
+
     }
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+
+        // Code to hide virtual keyboard
+        View focus = getCurrentFocus();
+        if(focus != null){
+            InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            keyboard.hideSoftInputFromWindow(focus.getWindowToken(), 0);
+        }
+
+
+
     }
 
     /**
@@ -125,63 +158,97 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+
+            Fragment f = null;
+            // Add
+            switch(position){
+                case 0:
+                    f = LoginPage.newInstance(position);
+                    break;
+
+                case 1:
+                    f = ChatWindow.newInstance(position);
+                    break;
+
+                case 2:
+                    f = LoginPage.newInstance(position);
+                    break;
+
+            }
+
+            return f;
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
+
 
         @Override
         public CharSequence getPageTitle(int position) {
+
             Locale l = Locale.getDefault();
+
+            String strTitle = null;
             switch (position) {
                 case 0:
-                    return getString(R.string.title_section1).toUpperCase(l);
+                    strTitle = getString(R.string.title_login).toUpperCase(l);
+                    break;
                 case 1:
-                    return getString(R.string.title_section2).toUpperCase(l);
+                    strTitle =  getString(R.string.title_chatwindow).toUpperCase(l);
+                    break;
                 case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
+                    strTitle =  getString(R.string.title_section3).toUpperCase(l);
+                    break;
             }
-            return null;
+
+            return strTitle;
+
         }
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            return rootView;
-        }
-    }
+//    /**
+//     * A placeholder fragment containing a simple view.
+//     */
+//    public static class PlaceholderFragment extends Fragment {
+//        /**
+//         * The fragment argument representing the section number for this
+//         * fragment.
+//         */
+//        private static final String ARG_SECTION_NUMBER = "section_number";
+//
+//        /**
+//         * Returns a new instance of this fragment for the given section
+//         * number.
+//         */
+//        public static PlaceholderFragment newInstance(int sectionNumber) {
+//
+//            PlaceholderFragment fragment;// = new PlaceholderFragment();
+//
+//            switch(sectionNumber){
+//                case 0:     // Login Page
+//                    fragment = new LoginPage();
+//                    break;
+//            }
+//
+//
+//            Bundle args = new Bundle();
+//            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+//            fragment.setArguments(args);
+//            return fragment;
+//        }
+//
+//        public PlaceholderFragment() {
+//        }
+//
+//        @Override
+//        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                                 Bundle savedInstanceState) {
+//            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+//            return rootView;
+//        }
+//    }
 
 }

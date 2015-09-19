@@ -1,11 +1,26 @@
 <resources>
-    <string name="app_name">GroupChat</string>
 
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
+
+    <string name="title_login">Login</string>
+    <string name="title_chatwindow">Chat</string>
     <string name="title_section3">Section 3</string>
 
-    <string name="hello_world">Hello world!</string>
+
 
     <string name="action_settings">Settings</string>
+
+
+
+    <string name="app_name">Group Chat</string>
+    <string name="title">(Company Name)</string>
+    <string name="author_name">By SoftwaresUnleashed</string>
+    <string name="author_url">www.softwaresunleashed.com</string>
+    <string name="enter_name">Enter Your Name</string>
+    <string name="enter_phone">Enter Phone Number</string>
+    <string name="btn_join">JOIN</string>
+    <string name="btn_send">Send</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
