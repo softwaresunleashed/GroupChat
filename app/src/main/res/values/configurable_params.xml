@@ -20,7 +20,7 @@
 
     <string name="versionCode">1</string>
     <string name="versionName">@string/app_version</string>
-    <string name="app_version"> ( v1.0 ) 2015-09-11</string>
+    <string name="app_version"> ( v1.0 ) 2015-09-20</string>
     <string name="donate">Donate A Coffee</string>
 
 

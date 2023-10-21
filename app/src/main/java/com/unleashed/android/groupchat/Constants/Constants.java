@@ -10,8 +10,10 @@ public class Constants {
 
 
     // Remote server (Chat Server) URL
-    public static final String REMOTE_SERVER_IP = "192.168.0.101";
-    public static final String REMOTE_SERVER_PORT = "8080";
+
+    public static final String REMOTE_SERVER_IP = "gcs-softwaresunleash.rhcloud.com";
+    //public static final String REMOTE_SERVER_IP = "192.168.0.100";
+    public static final String REMOTE_SERVER_PORT = "80";
 
     public static final String REMOTE_SERVER_URL = "ws://" + REMOTE_SERVER_IP +":"+ REMOTE_SERVER_PORT +"/GroupChatServer/chat?name=";
 
